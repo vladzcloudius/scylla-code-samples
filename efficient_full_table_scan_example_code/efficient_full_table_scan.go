@@ -186,7 +186,7 @@ Print Rows Output File        : %s
 		rangesChannel <- ranges[i]
 	}
 
-	// Close the channel so that the goroutines woun't get deadlocked
+	// Close the channel so that the goroutines won't get deadlocked
 	close(rangesChannel)
 
 	// Mechanism to sync all goroutines and mark when we have finished running them all
