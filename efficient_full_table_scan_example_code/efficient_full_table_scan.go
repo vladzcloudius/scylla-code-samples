@@ -291,5 +291,5 @@ Print Rows Output File        : %s
 	fmt.Printf("Done!\n\n")
 	fmt.Printf("Total Execution Time: %s\n\n", time.Since(startTime))
 	fmt.Printf("Total Scanned Token Ranges : %d\n", len(ranges))
-	fmt.Printf("Total Returned Partitions  : %d\n", totalRowsFinal)
+	fmt.Printf("Total Returned Rows  : %d\n", totalRowsFinal)
 }
