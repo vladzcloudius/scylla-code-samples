@@ -62,24 +62,30 @@ func getTokenRanges() []*tokenRange {
 	var maxSize uint64 = math.MaxInt64 * 2
 	var rangeSize = maxSize / uint64(m)
 
+	// Sanity
+	if rangeSize == 0 {
+		rangeSize = 1
+	}
+
 	var start int64 = math.MinInt64
 	var end int64
 	var shouldBreak = false
 
 	var ranges = make([]*tokenRange, m)
 
-	for i := int64(0); i < m; i++ {
+	for i := int64(0); !shouldBreak; i++ {
 		end = start + int64(rangeSize)
-		if start > 0 && end < 0 {
+
+		// Last iteration detector (wrap around):
+		//  * Wrap around is when the "start" is positive and the "end" is negative
+		//  * Next "start" is going to be the current "end" + 1.
+		//  * Don't allow the next iteration "start" to be negative.
+		if start > 0 && end + 1 < 0 {
 			end = math.MaxInt64
 			shouldBreak = true
 		}
 
 		ranges[i] = &tokenRange{StartRange: start, EndRange: end}
-
-		if shouldBreak {
-			break
-		}
 
 		start = end + 1
 	}
